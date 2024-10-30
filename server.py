@@ -7,7 +7,7 @@ KEY = '1101001110111010101010110010101010110101110111101010111010110101'  # Exam
 def start_server():
     # Setting up server socket
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.bind(('localhost', 12345))
+    server_socket.bind(('localhost', 12346))
     server_socket.listen(1)
     print("Server is active and listening on port 12345...")
 

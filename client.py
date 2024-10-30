@@ -7,7 +7,7 @@ KEY = '1101001110111010101010110010101010110101110111101010111010110101'  # Exam
 def start_client(message):
     # Set up the client socket to connect to server
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.connect(('localhost', 12345))
+    client_socket.connect(('localhost', 12346))
 
     # Encrypt the message before sending
     encrypted_message = encrypt_long(message, KEY)
