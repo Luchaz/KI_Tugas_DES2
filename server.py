@@ -1,30 +1,30 @@
 import socket
 from DES import decrypt_long
 
-# Pre-shared key (same as on client side)
-KEY = '1101001110111010101010110010101010110101110111101010111010110101'  # Example 64-bit key
+# Hardcoded kunci DES yang harus sama di client dan server (64-bit binary string)
+KEY = '1101001110111010101010110010101010110101110111101010111010110101'
 
 def start_server():
-    # Setting up server socket
+    # Inisialisasi server socket untuk menerima koneksi
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.bind(('localhost', 12346))
-    server_socket.listen(1)
-    print("Server is active and listening on port 12345...")
+    server_socket.bind(('localhost', 23456))  # Menggunakan port 23456
+    server_socket.listen(1)  # Server mendengarkan hingga 1 koneksi
+    print("Server sedang menunggu koneksi pada port 23456...")
 
-    # Accept connection from client
-    connection, address = server_socket.accept()
-    print(f"Connection established with {address}")
+    # Terima koneksi dari client
+    conn, addr = server_socket.accept()
+    print(f"Koneksi dari: {addr}")
+    
+    # Menerima pesan terenkripsi dari client
+    encrypted_message = conn.recv(4096).decode()  # Menerima hingga 4096 byte
+    print(f"Pesan terenkripsi diterima: {encrypted_message}")
 
-    # Receive encrypted message
-    encrypted_message = connection.recv(4096).decode()
-    print(f"Encrypted Message: {encrypted_message}")
-
-    # Decrypt the received message
+    # Dekripsi pesan yang diterima
     decrypted_message = decrypt_long(encrypted_message, KEY)
-    print(f"Decrypted Message: {decrypted_message}")
-
-    # Close the connection
-    connection.close()
+    print(f"Pesan setelah dekripsi: {decrypted_message}")
+    
+    # Tutup koneksi setelah selesai
+    conn.close()
 
 if __name__ == "__main__":
     start_server()
